@@ -1,0 +1,140 @@
+@import "../../style.scss";
+
+.leftBar {
+  @include themify($themes) {
+    flex: 2;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    scrollbar-width: none;          // Firefox
+    -ms-overflow-style: none;       // IE Edge
+
+    background: themed("bg");
+    color: themed("textColor");
+
+    @include mobile {
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;                // Chrome/Safari
+    }
+
+    .container {
+      padding: 1.25rem;             // 20px → multiple of 4
+
+      hr {
+        margin: 1rem 0;
+        border: 0;
+        height: 1px;
+        background: themed("border");
+        opacity: .6;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        > span {
+          font: 600 0.7rem/1;        // 11px ≈ 0.7rem
+          letter-spacing: .04em;
+          text-transform: uppercase;
+          color: themed("textColorSoft");
+          margin-left: .25rem;
+        }
+
+        .user {
+          display: grid;
+          grid-template-columns: 30px 1fr;
+          align-items: center;
+          gap: .75rem;
+          margin-bottom: .5rem;
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          span {
+            font: 500 0.9rem/1.2;
+            color: inherit;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+
+        .item {
+          position: relative;
+          display: grid;
+          grid-template-columns: 24px 1fr;
+          align-items: center;
+          gap: 1rem;
+          padding: .6rem 1rem;
+          border-radius: .75rem;
+          background: themed("cardBg");
+          box-shadow: 0 2px 5px rgba(0, 0, 0, .04);
+          cursor: pointer;
+          transition: background .25s ease, box-shadow .25s ease,
+                      transform .25s cubic-bezier(.4,0,.2,1);
+
+          svg {
+            font-size: 1.25rem;
+            color: themed("textColorSoft");
+            transition: color .25s ease;
+          }
+
+          span {
+            font: 500 0.9rem/1.2;
+            color: inherit;
+          }
+
+          // Hover / focus effects
+          &:hover,
+          &:focus-visible {
+            background: themed("softBg");
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+            transform: translateX(-4px) scale(1.015);
+
+            svg {
+              color: themed("textColor");
+            }
+          }
+
+          // Active ripple
+          &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: currentColor;
+            opacity: 0;
+            transform: scale(.9);
+            transition: opacity .4s, transform .4s;
+          }
+
+          &:active::after {
+            opacity: .08;
+            transform: scale(1);
+            transition: none;
+          }
+
+          // Respect users who disable motion
+          @media (prefers-reduced-motion: reduce) {
+            transition: none;
+
+            &::after,
+            &:hover,
+            &:focus-visible {
+              transform: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

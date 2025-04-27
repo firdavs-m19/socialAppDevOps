@@ -1,0 +1,232 @@
+/*  src/components/navbar/navbar.scss  */
+@import "../../style.scss";
+
+/* ─────────── Base desktop styles (unchanged) ─────────── */
+.navbar {
+  @include themify($themes) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 60px;
+    border-bottom: 2px solid themed("border");
+    position: sticky;
+    top: 0;
+    background-color: themed("bg");
+    color: themed("textColor");
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    /* -------- Left block -------- */
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      span {
+        font-weight: bold;
+        font-size: 24px;
+        color: themed("logo");
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: themed("primary");
+        }
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid themed("border");
+        border-radius: 30px;
+        padding: 5px 15px;
+        transition: border 0.3s ease;
+
+        input {
+          border: none;
+          width: 350px;
+          background-color: transparent;
+          color: themed("textColor");
+          padding: 5px;
+          font-size: 14px;
+          outline: none;
+
+          @include mobile {
+            width: 100px;
+            display: none;
+          }
+
+          @include tablet {
+            width: 250px;
+            padding: 10px;
+          }
+
+          &:focus {
+            border-color: themed("primary");
+          }
+        }
+
+        &:hover {
+          border-color: themed("primary");
+        }
+      }
+    }
+
+    /* -------- Right block -------- */
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        position: relative;
+
+        img {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid themed("border");
+          transition: border-color 0.3s ease;
+
+          &:hover {
+            border-color: themed("primary");
+          }
+        }
+
+        span {
+          color: themed("textColor");
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        @include tablet {
+          display: none;
+        }
+      }
+
+      .logoutButton {
+        padding: 5px 15px;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        background-color: transparent;
+        color: themed("primary");
+        cursor: pointer;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: themed("primary");
+          color: white;
+        }
+      }
+
+      /* hide icon group on very small screens (overridden later for menu) */
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+}
+
+/* ─────────── Responsive add‑ons ─────────── */
+
+/* Tablet  (≤ 1024 px): hide search bar */
+@media (max-width: 1024px) {
+  .navbar {
+    @include themify($themes) {
+      .left {
+        .search {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/* Phone  (≤ 768 px): hamburger + slide‑down menu */
+@media (max-width: 768px) {
+  .navbar {
+    @include themify($themes) {
+      padding: 10px 12px;
+      gap: 0.5rem;
+      position: relative;
+
+      /* ---------- hamburger icon ---------- */
+      .nav-hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        cursor: pointer;
+        margin-left: auto; /* pushes it to the right edge */
+        span {
+          width: 22px;
+          height: 2px;
+          background: themed("textColor");
+          transition: 0.3s;
+        }
+      }
+
+      /* hidden checkbox to store state */
+      .nav-toggle {
+        display: none;
+      }
+
+      /* collapse original right area */
+      .right {
+        display: none;
+      }
+
+      /* slide‑down panel when checked */
+      .nav-toggle:checked ~ .right {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* navbar height */
+        right: 0;
+        width: 220px;
+        padding: 20px;
+        gap: 20px;
+        background: themed("bg");
+        border-left: 2px solid themed("border");
+        border-bottom: 2px solid themed("border");
+        border-radius: 0 0 0 12px;
+        box-shadow: -4px 8px 12px rgba(0, 0, 0, 0.08);
+        z-index: 998;
+
+        /* make inner items fill width */
+        > div,
+        button {
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+
+      /* burger → X animation */
+      .nav-toggle:checked + .nav-hamburger span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .nav-toggle:checked + .nav-hamburger span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle:checked + .nav-hamburger span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+/* Users with reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .navbar * {
+    transition: none !important;
+  }
+}

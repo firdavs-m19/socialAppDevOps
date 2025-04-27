@@ -1,0 +1,143 @@
+@import "../../style.scss";
+
+.rightBar {
+  @include themify($themes) {
+    flex: 3;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    background-color: themed("bgSoft");
+
+    @include mobile {
+      display: none;
+    }
+    @include tablet {
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .container {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .item {
+        background-color: themed("bg");
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        span {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: themed("textColor");
+        }
+
+        .user {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+          word-break: break-word;
+
+          .userInfo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            min-width: 0;
+            flex: 1;
+
+            img {
+              width: 48px;
+              height: 48px;
+              border-radius: 50%;
+              object-fit: cover;
+              flex-shrink: 0;
+            }
+
+            .online {
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background-color: limegreen;
+              position: absolute;
+              top: 2px;
+              left: 35px;
+              border: 2px solid themed("bg");
+            }
+
+            span {
+              font-weight: 500;
+              font-size: 1rem;
+              color: themed("textColor");
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width: 150px;
+            }
+
+            p {
+              margin: 0;
+              font-size: 0.95rem;
+              color: themed("textColorSoft");
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width: 200px;
+
+              span {
+                font-weight: 600;
+                color: themed("textColor");
+              }
+            }
+          }
+
+          .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+
+            button {
+              padding: 6px 12px;
+              border-radius: 8px;
+              border: none;
+              font-size: 0.85rem;
+              font-weight: 500;
+              color: white;
+              cursor: pointer;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              &:first-child {
+                background-color: #5271ff;
+
+                &:hover {
+                  background-color: #3d5aff;
+                }
+              }
+
+              &:last-child {
+                background-color: #f0544f;
+
+                &:hover {
+                  background-color: #d8433f;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
