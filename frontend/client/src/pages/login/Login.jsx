@@ -5,7 +5,7 @@ import "./login.scss";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -22,7 +22,7 @@ const Login = () => {
     try {
       await login(inputs);
       console.log("Login successful, navigating to /");
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } catch (err) {
       console.error("Login error:", err);
       setErr(err.response?.data?.message || "Login failed");
@@ -48,9 +48,9 @@ const Login = () => {
           <h1>Login</h1>
           <form>
             <input
-              type="email"
-              placeholder="Email"
-              name="email"
+              type="text" // Changed from email type to text to accept username
+              placeholder="Username" // Updated placeholder to "Username"
+              name="username" // Changed from email to username
               onChange={handleChange}
               required
             />
