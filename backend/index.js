@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import path from "path";
+import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/users.routes.js";
@@ -13,10 +14,11 @@ import uploadRoute from "./routes/upload.routes.js";
 import relationshipsRoute from "./routes/relationship.routes.js";
 import storyRoute from "./routes/story.routes.js";
 
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URL =
-  "mongodb+srv://firdavsmuhammadjonov19:GAKRn019PQZlwAj8@cluster0.ebyi4ha.mongodb.net/social?retryWrites=true&w=majority&appName=Cluster0";
+
+const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json());
 app.use(
