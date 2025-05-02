@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "your_jwt_secret"); // Verify the JWT token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the JWT token
     req.user = decoded; // Store decoded user data in req.user
     next(); // Proceed to the next middleware or route handler
   } catch (error) {
