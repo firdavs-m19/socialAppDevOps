@@ -1,4 +1,5 @@
-name: socialApp - lamasocial
+# ✅ Either remove 'name:' or use a valid format
+name: socialapp-lamasocial  # Lowercase, no spaces
 
 services:
   backend:
