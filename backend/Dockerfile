@@ -3,7 +3,8 @@ FROM node:18
 WORKDIR /app
 
 COPY package*.json ./
-COPY .env .
+
+RUN test -f .env && cp .env . || echo ".env not found, using defaults"
 RUN npm install
 
 COPY . .
