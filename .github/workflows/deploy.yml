@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lama-social:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}
 
       - name: Install Docker Compose
         run: sudo apt-get update && sudo apt-get install -y docker-compose-plugin
